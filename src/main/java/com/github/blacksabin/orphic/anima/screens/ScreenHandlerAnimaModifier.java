@@ -30,15 +30,15 @@ public class ScreenHandlerAnimaModifier extends ScreenHandler {
 
         LOGGER.info("Making ScreenHandler. Makin' slots.");
 
-        this.addSlot(new SlotAnimaComponent(this.inventory,0,10,10,"brain")); // Brain
-        this.addSlot(new SlotAnimaComponent(this.inventory,1,20,10,"brain-aug")); // Brain Augment
-        this.addSlot(new SlotAnimaComponent(this.inventory,2,30,10,"vision")); // Vision
-        this.addSlot(new SlotAnimaComponent(this.inventory,3,10,20,"muscle")); // Muscle Fiber
-        this.addSlot(new SlotAnimaComponent(this.inventory,4,10,30,"skeleton")); // Skeleton
-        this.addSlot(new SlotAnimaComponent(this.inventory,5,10,40,"heart")); // Core
-        this.addSlot(new SlotAnimaComponent(this.inventory,6,10,56,"extra")); // Extra Organ
-        this.addSlot(new SlotAnimaComponent(this.inventory,7,10,56,"extra")); // Extra Organ
-        this.addSlot(new SlotAnimaComponent(this.inventory,8,10,56,"extra")); // Extra Organ
+        this.addSlot(new SlotAnimaComponent(this.inventory,0,80,17,"brain")); // Brain
+        this.addSlot(new SlotAnimaComponent(this.inventory,1,100,26,"brain-aug")); // Brain Augment
+        this.addSlot(new SlotAnimaComponent(this.inventory,2,60,26,"vision")); // Vision
+        this.addSlot(new SlotAnimaComponent(this.inventory,3,60,47,"muscle")); // Muscle Fiber
+        this.addSlot(new SlotAnimaComponent(this.inventory,4,80,57,"skeleton")); // Skeleton
+        this.addSlot(new SlotAnimaComponent(this.inventory,5,80,37,"heart")); // Core
+        this.addSlot(new SlotAnimaComponent(this.inventory,6,100,47,"extra")); // Extra Organ
+        this.addSlot(new SlotAnimaComponent(this.inventory,7,200,200,"extra")); // Extra Organ
+        this.addSlot(new SlotAnimaComponent(this.inventory,8,200,216,"extra")); // Extra Organ
 
         int i;
         int j;
