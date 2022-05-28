@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.github.blacksabin.orphic.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "LivingEntityMixin"
+  ],
+  "client": [
+    "RecipeRemainderMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
