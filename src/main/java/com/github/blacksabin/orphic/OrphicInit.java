@@ -4,7 +4,7 @@ import com.github.blacksabin.orphic.anima.ItemAnimaCore;
 import com.github.blacksabin.orphic.anima.ItemArdentSeed;
 import com.github.blacksabin.orphic.anima.ItemCoreExtractor;
 import com.github.blacksabin.orphic.anima.ItemVitalicOriel;
-import com.github.blacksabin.orphic.anima.components.ItemOrphicHeart;
+import com.github.blacksabin.orphic.anima.components.HeartOrphicSource;
 import com.github.blacksabin.orphic.anima.screens.ScreenHandlerAnimaModifier;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -30,7 +30,7 @@ public class OrphicInit implements ModInitializer {
 	public static final ItemAnimaCore ITEM_ANIMA_CORE = new ItemAnimaCore(new FabricItemSettings().group(ItemGroup.MISC));
 	public static final ItemCoreExtractor ITEM_CORE_EXTRACTOR = new ItemCoreExtractor(new FabricItemSettings().group(ItemGroup.MISC));
 	public static final ItemVitalicOriel ITEM_VITALIC_ORIEL = new ItemVitalicOriel(new FabricItemSettings().group(ItemGroup.MISC));
-	public static final ItemOrphicHeart ITEM_ORPHIC_HEART = new ItemOrphicHeart(new FabricItemSettings().group(ItemGroup.MISC));
+	public static final HeartOrphicSource ITEM_ORPHIC_HEART = new HeartOrphicSource(new FabricItemSettings().group(ItemGroup.MISC));
 	public static final ScreenHandlerType<ScreenHandlerAnimaModifier> SCREEN_HANDLER_ANIMA_MODIFIER = ScreenHandlerRegistry.registerExtended(id("anima_modifier"), ScreenHandlerAnimaModifier::new);
 
 

@@ -1,10 +1,13 @@
 package com.github.blacksabin.orphic.mixin;
 
 
+import com.github.blacksabin.orphic.anima.OrphicHungerManager;
+import com.mojang.authlib.GameProfile;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.player.HungerManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
@@ -23,15 +26,21 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
     @Shadow
-    public abstract void setAbsorptionAmount(float amount);
-
-    @Shadow public abstract float getAbsorptionAmount();
-
-    protected NbtCompound nbt;
+    protected HungerManager hungerManager;
 
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
+
+    @Inject(method = "<init>", at = @At(value = "RETURN"))
+    public void initOrphicHunger(World world, BlockPos pos, float yaw, GameProfile profile, CallbackInfo ci){
+        this.hungerManager = new OrphicHungerManager();
+    }
+}
+
+
+
+
     /*
 
     @Inject(method = "readCustomDataFromNbt", at = @At("RETURN"))
@@ -93,4 +102,3 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         return VampirableKt.isVampire(this) ? !isDead() : super.isAlive();
     }
 */
-}

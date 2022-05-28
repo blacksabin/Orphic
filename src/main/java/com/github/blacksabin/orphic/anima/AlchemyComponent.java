@@ -1,4 +1,4 @@
-package com.github.blacksabin.orphic.alchemy;
+package com.github.blacksabin.orphic.anima;
 
 import com.github.blacksabin.orphic.common.OrphicComponent;
 
