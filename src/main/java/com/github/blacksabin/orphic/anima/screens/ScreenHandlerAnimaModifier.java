@@ -13,12 +13,10 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import static com.github.blacksabin.orphic.OrphicInit.LOGGER;
 
-import java.util.UUID;
 
 public class ScreenHandlerAnimaModifier extends ScreenHandler {
     private final AnimaPropertiesContainer targetAnima;
     private final AnimaInventory inventory;
-    private final PlayerEntity player;
 
     public ScreenHandlerAnimaModifier(int synchronizationID, PlayerInventory playerInventory, PacketByteBuf packetByteBuf) {
         this(synchronizationID, playerInventory, new AnimaPropertiesContainer(packetByteBuf.readNbt()));
@@ -28,7 +26,6 @@ public class ScreenHandlerAnimaModifier extends ScreenHandler {
         super(OrphicInit.SCREEN_HANDLER_ANIMA_MODIFIER, syncId);
         this.targetAnima = targetAnima;
         this.inventory = this.targetAnima.getAnimaInventory();
-        this.player = playerInventory.player;
 
 
         LOGGER.info("Making ScreenHandler. Makin' slots.");

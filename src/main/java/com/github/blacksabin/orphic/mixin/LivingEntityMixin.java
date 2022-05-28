@@ -23,6 +23,10 @@ public abstract class LivingEntityMixin extends Entity implements AnimaInterface
     @Unique
     private final AnimaPropertiesContainer animaPropertiesContainer = new AnimaPropertiesContainer();
 
+    public AnimaPropertiesContainer orphic$getAnimaProperties(){
+        return this.animaPropertiesContainer;
+    }
+
     @Inject(at = @At("TAIL"), method = "writeCustomDataToNbt")
     private void writeCustomDataToNbt(NbtCompound nbt, CallbackInfo ci){
         NbtCompound newNbt = new NbtCompound();

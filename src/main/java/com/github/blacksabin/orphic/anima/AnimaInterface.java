@@ -2,10 +2,7 @@ package com.github.blacksabin.orphic.anima;
 
 public interface AnimaInterface {
 
-    AnimaPropertiesContainer animaPropertiesContainer = new AnimaPropertiesContainer();
+    AnimaPropertiesContainer orphic$getAnimaProperties();
 
-    default AnimaPropertiesContainer orphic$getAnimaProperties(){
-        return this.animaPropertiesContainer;
-    }
 
 }
