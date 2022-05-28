@@ -31,3 +31,7 @@ bin/
 # fabric
 
 run/
+/.github/workflows/build.yml
+/gradle/wrapper/gradle-wrapper.jar
+/gradle/wrapper/gradle-wrapper.properties
+/Notes
