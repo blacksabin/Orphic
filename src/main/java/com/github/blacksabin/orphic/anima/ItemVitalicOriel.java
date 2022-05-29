@@ -16,6 +16,8 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
@@ -29,8 +31,8 @@ public class ItemVitalicOriel extends BaseItem {
         super(settings);
     }
 
-    public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
 
+    public void openAnimaModiferScreen(PlayerEntity user, LivingEntity entity){
         if(!user.getWorld().isClient()){
 
             NbtCompound nbt = new NbtCompound();
@@ -55,6 +57,18 @@ public class ItemVitalicOriel extends BaseItem {
             });
 
         }
+    }
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+
+        if(user.isSneaking()){
+            this.openAnimaModiferScreen(user, user);
+        }
+        return TypedActionResult.pass(user.getStackInHand(hand));
+
+    }
+    public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
+
+        this.openAnimaModiferScreen(user, entity);
         return ActionResult.SUCCESS;
     }
 
