@@ -1,6 +1,6 @@
 package com.github.blacksabin.orphic.anima.components;
 
-public interface AnimaComponent {
+public interface AnimaInternal {
 
     default String getComponentType(){
 

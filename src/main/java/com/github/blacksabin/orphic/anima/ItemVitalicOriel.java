@@ -2,7 +2,6 @@ package com.github.blacksabin.orphic.anima;
 
 import com.github.blacksabin.orphic.anima.screens.ScreenHandlerAnimaModifier;
 import com.github.blacksabin.orphic.common.BaseItem;
-import com.github.blacksabin.orphic.mixin.LivingEntityMixin;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,8 +19,6 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
-
-import java.util.UUID;
 
 
 public class ItemVitalicOriel extends BaseItem {
@@ -41,7 +38,7 @@ public class ItemVitalicOriel extends BaseItem {
                 @Override
                 public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
                     NbtCompound nbt = new NbtCompound();
-                    ((AnimaInterface)entity).orphic$getAnimaProperties().writeAnimaToNbt(nbt);
+                    ((AnimaComponent)entity).orphic$getAnimaProperties().writeAnimaToNbt(nbt);
                     buf.writeNbt(nbt);
                 }
 
@@ -52,7 +49,7 @@ public class ItemVitalicOriel extends BaseItem {
 
                 @Override
                 public @Nullable ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity user) {
-                    return new ScreenHandlerAnimaModifier(syncId, inv, ((AnimaInterface)entity).orphic$getAnimaProperties());
+                    return new ScreenHandlerAnimaModifier(syncId, inv, ((AnimaComponent)entity).orphic$getAnimaProperties());
                 }
             });
 

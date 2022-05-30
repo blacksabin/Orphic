@@ -1,6 +1,6 @@
 package com.github.blacksabin.orphic.mixin;
 
-import com.github.blacksabin.orphic.anima.AnimaInterface;
+import com.github.blacksabin.orphic.anima.AnimaComponent;
 import com.github.blacksabin.orphic.anima.AnimaPropertiesContainer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin extends Entity implements AnimaInterface {
+public abstract class LivingEntityMixin extends Entity implements AnimaComponent {
 
     public LivingEntityMixin(EntityType<?> type, World world) {
         super(type, world);

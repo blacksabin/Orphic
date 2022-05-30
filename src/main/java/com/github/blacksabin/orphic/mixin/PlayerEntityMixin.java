@@ -1,27 +1,19 @@
 package com.github.blacksabin.orphic.mixin;
 
 
-import com.github.blacksabin.orphic.anima.OrphicHungerManager;
+import com.github.blacksabin.orphic.anima.hungermanagers.MasterHungerManager;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.HungerManager;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.GameMode;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
@@ -34,7 +26,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Inject(method = "<init>", at = @At(value = "RETURN"))
     public void initOrphicHunger(World world, BlockPos pos, float yaw, GameProfile profile, CallbackInfo ci){
-        this.hungerManager = new OrphicHungerManager();
+        this.hungerManager = new MasterHungerManager();
     }
 }
 

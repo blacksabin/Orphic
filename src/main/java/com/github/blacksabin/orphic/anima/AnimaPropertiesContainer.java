@@ -1,11 +1,18 @@
 package com.github.blacksabin.orphic.anima;
 
+import com.github.blacksabin.orphic.anima.components.HeartInternal;
+import net.minecraft.entity.player.HungerManager;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 
 public class AnimaPropertiesContainer {
 
     public AnimaInventory inventory = new AnimaInventory();
+
+    public HungerManager hungerManager = new HungerManager();
+    public ManaManager manaManager = new ManaManager();
 
     public boolean initialized = false;
 
@@ -35,11 +42,28 @@ public class AnimaPropertiesContainer {
         return this.inventory;
     }
 
+    public HungerManager getHungerManager(){
+        return this.hungerManager;
+    }
+
+    public ManaManager getManaManager(){
+        return this.manaManager;
+    }
+
+    public void setHungerManager(){
+        Item heart = this.getHeart().getItem();
+        if(heart instanceof HeartInternal) {
+            this.hungerManager = ((HeartInternal) heart).getHungerManager();
+        }else{
+            this.hungerManager = new HungerManager();
+        }
+    }
+
     public void tick(){
 
     }
 
-    public ItemStack getCore(){
+    public ItemStack getHeart(){
         return this.inventory.getStack(5);
     }
 
@@ -49,6 +73,7 @@ public class AnimaPropertiesContainer {
             this.initialized = true;
         }
         this.inventory.writeInventoryToTag(nbt);
+        this.hungerManager.writeNbt(nbt);
     }
 
     public void readAnimaFromNbt(NbtCompound nbt){
@@ -57,6 +82,8 @@ public class AnimaPropertiesContainer {
             this.initialized = true;
         }
         this.inventory.readInventoryFromTag(nbt);
+        this.setHungerManager();
+        this.hungerManager.readNbt(nbt);
 
     }
 

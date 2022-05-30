@@ -1,6 +1,6 @@
 package com.github.blacksabin.orphic.anima;
 
-import com.github.blacksabin.orphic.anima.components.AnimaComponent;
+import com.github.blacksabin.orphic.anima.components.AnimaInternal;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -21,8 +21,8 @@ public class SlotAnimaComponent extends Slot {
     @Override
     public boolean canInsert(ItemStack stack) {
         Item thisItem = stack.getItem();
-        if(thisItem instanceof AnimaComponent){
-            return Objects.equals(myType, ((AnimaComponent) thisItem).getComponentType());
+        if(thisItem instanceof AnimaInternal){
+            return Objects.equals(myType, ((AnimaInternal) thisItem).getComponentType());
         }
         return false;
     }

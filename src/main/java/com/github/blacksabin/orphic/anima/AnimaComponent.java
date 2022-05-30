@@ -1,6 +1,6 @@
 package com.github.blacksabin.orphic.anima;
 
-public interface AnimaInterface {
+public interface AnimaComponent {
 
     AnimaPropertiesContainer orphic$getAnimaProperties();
 

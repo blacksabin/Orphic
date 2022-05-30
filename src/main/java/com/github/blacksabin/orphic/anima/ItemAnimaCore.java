@@ -1,6 +1,6 @@
 package com.github.blacksabin.orphic.anima;
 
-import com.github.blacksabin.orphic.anima.components.AnimaComponent;
+import com.github.blacksabin.orphic.anima.components.AnimaInternal;
 import com.github.blacksabin.orphic.common.BaseItem;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.ItemStack;
@@ -14,7 +14,7 @@ import java.util.List;
 
 import static com.github.blacksabin.orphic.common.AnimaUtil.getAnima;
 
-public class ItemAnimaCore extends BaseItem implements AnimaComponent {
+public class ItemAnimaCore extends BaseItem implements AnimaInternal {
 
     public ItemAnimaCore(Settings settings) {
         super(settings);
