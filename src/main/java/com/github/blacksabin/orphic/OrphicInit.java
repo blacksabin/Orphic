@@ -1,13 +1,12 @@
 package com.github.blacksabin.orphic;
 
 import com.github.blacksabin.orphic.anima.ItemAnimaCore;
+import com.github.blacksabin.orphic.blocks.*;
 import com.github.blacksabin.orphic.items.ItemArdentSeed;
 import com.github.blacksabin.orphic.anima.ItemCoreExtractor;
 import com.github.blacksabin.orphic.anima.ItemVitalicOriel;
 import com.github.blacksabin.orphic.anima.components.HeartOrphicSource;
 import com.github.blacksabin.orphic.anima.screens.ScreenHandlerAnimaModifier;
-import com.github.blacksabin.orphic.blocks.BlockEntityMineralSynthesizer;
-import com.github.blacksabin.orphic.blocks.BlockMineralSynthesizer;
 import com.github.blacksabin.orphic.screens.ScreenHandlerMineralSynthesizer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -36,8 +35,12 @@ public class OrphicInit implements ModInitializer {
 
 	public static final Block BLOCK_ABSTRACT_STONE = new Block(FabricBlockSettings.of(Material.METAL).strength(4.0f));
 	public static final Block BLOCK_MINERAL_SYNTHESIZER = new BlockMineralSynthesizer(FabricBlockSettings.of(Material.METAL).strength(4.0f).requiresTool());
+	public static final Block BLOCK_DEEP_SENTINEL = new BlockDeepSentinel(FabricBlockSettings.of(Material.METAL).strength(4.0f).requiresTool());
+	public static final Block BLOCK_DEEP_TOTEM = new BlockDeepTotem(FabricBlockSettings.of(Material.METAL).strength(4.0f).requiresTool());
 
 	public static BlockEntityType<BlockEntityMineralSynthesizer> BLOCK_ENTITY_MINERAL_SYNTHESIZER;
+	public static BlockEntityType<BlockEntityDeepSentinel> BLOCK_ENTITY_DEEP_SENTINEL;
+	public static BlockEntityType<BlockEntityDeepTotem> BLOCK_ENTITY_DEEP_TOTEM;
 
 	public static final ItemArdentSeed ITEM_ARDENT_SEED = new ItemArdentSeed(new FabricItemSettings().group(ItemGroup.MISC));
 	public static final ItemAnimaCore ITEM_ANIMA_CORE = new ItemAnimaCore(new FabricItemSettings().group(ItemGroup.MISC));
@@ -78,6 +81,14 @@ public class OrphicInit implements ModInitializer {
 		Registry.register(Registry.BLOCK, id("mineral_synthesizer"), BLOCK_MINERAL_SYNTHESIZER);
 		Registry.register(Registry.ITEM, id("mineral_synthesizer"), new BlockItem(BLOCK_MINERAL_SYNTHESIZER, new FabricItemSettings().group(ItemGroup.MISC)));
 		BLOCK_ENTITY_MINERAL_SYNTHESIZER = Registry.register(Registry.BLOCK_ENTITY_TYPE, id("mineral_synthesizer"), FabricBlockEntityTypeBuilder.create(BlockEntityMineralSynthesizer::new, BLOCK_MINERAL_SYNTHESIZER).build(null));
+
+		Registry.register(Registry.BLOCK, id("deep_sentinel"), BLOCK_DEEP_SENTINEL);
+		Registry.register(Registry.ITEM, id("deep_sentinel"), new BlockItem(BLOCK_DEEP_SENTINEL, new FabricItemSettings().group(ItemGroup.MISC)));
+		BLOCK_ENTITY_DEEP_SENTINEL = Registry.register(Registry.BLOCK_ENTITY_TYPE, id("deep_sentinel"), FabricBlockEntityTypeBuilder.create(BlockEntityDeepSentinel::new, BLOCK_DEEP_SENTINEL).build(null));
+
+		Registry.register(Registry.BLOCK, id("deep_totem"), BLOCK_DEEP_TOTEM);
+		Registry.register(Registry.ITEM, id("deep_totem"), new BlockItem(BLOCK_DEEP_TOTEM, new FabricItemSettings().group(ItemGroup.MISC)));
+		BLOCK_ENTITY_DEEP_TOTEM = Registry.register(Registry.BLOCK_ENTITY_TYPE, id("deep_totem"), FabricBlockEntityTypeBuilder.create(BlockEntityDeepTotem::new, BLOCK_DEEP_TOTEM).build(null));
 
 		// DIMENSIONS
 

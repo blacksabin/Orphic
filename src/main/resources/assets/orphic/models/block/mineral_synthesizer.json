@@ -1,6 +1,7 @@
 {
   "parent": "block/cube",
   "textures": {
+    "particle": "orphic:block/deep_machine_base",
     "down": "orphic:block/deep_machine_base",
     "up":"orphic:block/deep_machine_top",
     "north": "orphic:block/deep_machine_side",

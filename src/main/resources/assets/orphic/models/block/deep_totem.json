@@ -1,0 +1,41 @@
+{
+  "credit": "Made with Blockbench",
+  "textures": {
+    "0": "orphic:block/deep_machine_side",
+    "particle": "orphic:block/deep_machine_side"
+  },
+  "elements": [
+    {
+      "from": [6, 0, 6],
+      "to": [10, 14, 10],
+      "faces": {
+        "north": {"uv": [6, 1, 10, 15], "texture": "#0"},
+        "east": {"uv": [6, 1, 10, 15], "texture": "#0"},
+        "south": {"uv": [6, 1, 10, 15], "texture": "#0"},
+        "west": {"uv": [6, 1, 10, 15], "texture": "#0"},
+        "up": {"uv": [6, 6, 10, 10], "texture": "#0"},
+        "down": {"uv": [6, 6, 10, 10], "texture": "#0"}
+      }
+    }
+  ],
+  "display": {
+    "thirdperson_righthand": {
+      "scale": [0.8, 0.8, 0.8]
+    },
+    "thirdperson_lefthand": {
+      "scale": [0.8, 0.8, 0.8]
+    },
+    "ground": {
+      "translation": [0, 2.25, 0],
+      "scale": [0.8, 0.8, 0.8]
+    },
+    "gui": {
+      "rotation": [15, 30, 0],
+      "translation": [0, 1, 0]
+    },
+    "head": {
+      "translation": [0, 9, 0],
+      "scale": [3.3, 2, 3.3]
+    }
+  }
+}
