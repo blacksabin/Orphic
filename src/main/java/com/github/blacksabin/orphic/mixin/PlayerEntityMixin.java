@@ -1,24 +1,37 @@
 package com.github.blacksabin.orphic.mixin;
 
 
+import com.github.blacksabin.orphic.OrphicInit;
 import com.github.blacksabin.orphic.anima.hungermanagers.MasterHungerManager;
+import com.github.blacksabin.orphic.common.InventoryUtil;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.HungerManager;
+import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.List;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
     @Shadow
     protected HungerManager hungerManager;
+
+    @Shadow public abstract PlayerInventory getInventory();
+
+    @Shadow public abstract ItemCooldownManager getItemCooldownManager();
 
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
@@ -28,6 +41,51 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     public void initOrphicHunger(World world, BlockPos pos, float yaw, GameProfile profile, CallbackInfo ci){
         this.hungerManager = new MasterHungerManager();
     }
+
+
+    @ModifyVariable(method = "applyDamage(Lnet/minecraft/entity/damage/DamageSource;F)V",
+            at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/entity/player/PlayerEntity;applyEnchantmentsToDamage(Lnet/minecraft/entity/damage/DamageSource;F)F"),
+            argsOnly = true,
+            require = 1,
+            index = 2
+    )
+    float forcefieldEffect(float amount, DamageSource source) {
+        List<ItemStack> canBlock = InventoryUtil.find(this.getInventory(), OrphicInit.ITEM_ATU_CHARM);
+        if(canBlock.size() > 0 && !this.getItemCooldownManager().isCoolingDown(OrphicInit.ITEM_ATU_CHARM)){
+            this.getItemCooldownManager().set(OrphicInit.ITEM_ATU_CHARM,(int)Math.ceil(20*amount));
+            return 0f;
+        }else{
+            return amount;
+        }
+    }
+    /*
+    public boolean contains(ItemStack stack)
+    public PlayerInventory getInventory() {
+        return this.inventory;
+    }
+    public int getSlotWithStack(ItemStack stack) {
+        for(int i = 0; i < this.main.size(); ++i) {
+            if (!((ItemStack)this.main.get(i)).isEmpty() && ItemStack.canCombine(stack, (ItemStack)this.main.get(i))) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    public int indexOf(ItemStack stack) {
+        for(int i = 0; i < this.main.size(); ++i) {
+            ItemStack itemStack = (ItemStack)this.main.get(i);
+            if (!((ItemStack)this.main.get(i)).isEmpty() && ItemStack.canCombine(stack, (ItemStack)this.main.get(i)) && !((ItemStack)this.main.get(i)).isDamaged() && !itemStack.hasEnchantments() && !itemStack.hasCustomName()) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+     */
+
 }
 
 
