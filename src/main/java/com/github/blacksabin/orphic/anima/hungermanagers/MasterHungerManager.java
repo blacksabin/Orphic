@@ -2,14 +2,10 @@ package com.github.blacksabin.orphic.anima.hungermanagers;
 
 import com.github.blacksabin.orphic.anima.AnimaComponent;
 import com.github.blacksabin.orphic.anima.AnimaPropertiesContainer;
-import com.github.blacksabin.orphic.anima.HungerProperties;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.HungerManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.GameRules;
 
 public class MasterHungerManager extends HungerManager {
     private AnimaPropertiesContainer anima;

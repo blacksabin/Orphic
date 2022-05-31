@@ -1,7 +1,7 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "planar:block/planar_scaffold"
+    "all": "orphic:block/planar_scaffold"
   }
 }
 

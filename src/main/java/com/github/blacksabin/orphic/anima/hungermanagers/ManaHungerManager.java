@@ -43,12 +43,14 @@ public class ManaHungerManager extends HungerManager {
         this.prevFoodLevel = this.foodLevel;
         if (this.exhaustion > 4.0F) {
             this.exhaustion -= 4.0F;
+            this.manaManager.spendMana(4);
             if (this.saturationLevel > 0.0F) {
                 this.saturationLevel = Math.max(this.saturationLevel - 1.0F, 0.0F);
             } else if (difficulty != Difficulty.PEACEFUL) {
                 this.foodLevel = Math.max(this.foodLevel - 1, 0);
             }
         }
+        this.manaManager.regenMana();
 
         boolean bl = player.world.getGameRules().getBoolean(GameRules.NATURAL_REGENERATION);
         if (bl && player.canFoodHeal() && this.manaManager.getManaRatio() >= 1F) {
@@ -56,6 +58,7 @@ public class ManaHungerManager extends HungerManager {
             if (this.foodTickTimer >= 10) {
                 float f = Math.min(this.saturationLevel, 6.0F);
                 player.heal(f / 6.0F);
+                this.manaManager.spendMana(20);
                 this.addExhaustion(f);
                 this.foodTickTimer = 0;
             }

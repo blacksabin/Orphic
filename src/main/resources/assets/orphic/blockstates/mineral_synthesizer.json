@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "": { "model": "orphic:block/mineral_synthesizer" },
+    "lit=false": { "model": "orphic:block/mineral_synthesizer" },
+    "lit=true": {"model": "orphic:block/mineral_synthesizer_active"}
+  }
+}
+

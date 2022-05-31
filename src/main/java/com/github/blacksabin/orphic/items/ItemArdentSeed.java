@@ -1,4 +1,4 @@
-package com.github.blacksabin.orphic.anima;
+package com.github.blacksabin.orphic.items;
 
 import com.github.blacksabin.orphic.common.BaseItem;
 import com.github.blacksabin.orphic.mixin.RecipeRemainderMixin;

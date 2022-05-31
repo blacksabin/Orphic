@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "orphic:block/deep_machine_base",
+    "up":"orphic:block/deep_machine_top",
+    "north": "orphic:block/deep_machine_side",
+    "south": "orphic:block/deep_machine_side",
+    "east": "orphic:block/deep_machine_side",
+    "west": "orphic:block/deep_machine_side"
+  }
+}
+

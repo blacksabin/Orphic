@@ -91,7 +91,6 @@ public class AnimaInventory implements Inventory {
 
 
     public void writeInventoryToTag(NbtCompound tag){
-        LOGGER.info("Writing tag from inventory...");
         NbtList newTag = new NbtList();
 
         for(int i = 0; i < this.size(); i++) {
@@ -105,12 +104,10 @@ public class AnimaInventory implements Inventory {
 
 
 
-        LOGGER.info("Nbt tag update from inventory.");
 
     }
 
     public void readInventoryFromTag(NbtCompound tag){
-        LOGGER.info("Reading inventory from tag...");
         NbtList listTag = tag.getList("Internals", NbtType.COMPOUND);
         this.clear();
         listTag.forEach(element -> {
@@ -119,7 +116,6 @@ public class AnimaInventory implements Inventory {
             ItemStack stack = ItemStack.fromNbt(stackTag.getCompound("Stack"));
             this.setStack(slot, stack);
         });
-        LOGGER.info("Inventory updated from tag.");
     }
 
 }
