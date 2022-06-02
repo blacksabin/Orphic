@@ -1,6 +1,6 @@
 package com.github.blacksabin.orphic;
 
-import com.github.blacksabin.orphic.anima.screens.ScreenAnimaModifier;
+import com.github.blacksabin.orphic.screens.ScreenAnimaModifier;
 import com.github.blacksabin.orphic.screens.ScreenMineralSynthesizer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;

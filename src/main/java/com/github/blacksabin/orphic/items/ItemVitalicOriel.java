@@ -1,6 +1,7 @@
-package com.github.blacksabin.orphic.anima;
+package com.github.blacksabin.orphic.items;
 
-import com.github.blacksabin.orphic.anima.screens.ScreenHandlerAnimaModifier;
+import com.github.blacksabin.orphic.anima.AnimaComponent;
+import com.github.blacksabin.orphic.screens.ScreenHandlerAnimaModifier;
 import com.github.blacksabin.orphic.common.BaseItem;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.entity.LivingEntity;

@@ -2,7 +2,7 @@ package com.github.blacksabin.orphic.mixin;
 
 
 import com.github.blacksabin.orphic.OrphicInit;
-import com.github.blacksabin.orphic.anima.hungermanagers.MasterHungerManager;
+import com.github.blacksabin.orphic.hungermanagers.MasterHungerManager;
 import com.github.blacksabin.orphic.common.InventoryUtil;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.entity.EntityType;

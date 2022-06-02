@@ -1,9 +1,8 @@
-package com.github.blacksabin.orphic.anima.components;
+package com.github.blacksabin.orphic.components;
 
-import com.github.blacksabin.orphic.anima.hungermanagers.ManaHungerManager;
+import com.github.blacksabin.orphic.hungermanagers.ManaHungerManager;
 import com.github.blacksabin.orphic.common.BaseItem;
 import net.minecraft.entity.player.HungerManager;
-import net.minecraft.entity.player.PlayerEntity;
 
 public class HeartOrphicSource extends BaseItem implements HeartInternal {
 

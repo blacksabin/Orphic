@@ -1,4 +1,4 @@
-package com.github.blacksabin.orphic.anima.hungermanagers;
+package com.github.blacksabin.orphic.hungermanagers;
 
 import com.github.blacksabin.orphic.anima.AnimaComponent;
 import com.github.blacksabin.orphic.anima.AnimaPropertiesContainer;
@@ -6,7 +6,6 @@ import com.github.blacksabin.orphic.anima.ManaManager;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.HungerManager;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.Difficulty;

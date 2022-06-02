@@ -1,6 +1,6 @@
-package com.github.blacksabin.orphic.anima;
+package com.github.blacksabin.orphic.items;
 
-import com.github.blacksabin.orphic.anima.components.AnimaInternal;
+import com.github.blacksabin.orphic.components.AnimaInternal;
 import com.github.blacksabin.orphic.common.BaseItem;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.ItemStack;

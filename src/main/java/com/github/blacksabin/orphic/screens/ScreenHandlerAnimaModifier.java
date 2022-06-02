@@ -1,4 +1,4 @@
-package com.github.blacksabin.orphic.anima.screens;
+package com.github.blacksabin.orphic.screens;
 
 import com.github.blacksabin.orphic.OrphicInit;
 import com.github.blacksabin.orphic.anima.AnimaInventory;

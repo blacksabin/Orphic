@@ -1,10 +1,7 @@
-package com.github.blacksabin.orphic.anima.components;
+package com.github.blacksabin.orphic.components;
 
 import com.github.blacksabin.orphic.common.BaseItem;
 import net.minecraft.entity.player.HungerManager;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
 public class HeartCorpusStomach extends BaseItem implements HeartInternal {
 

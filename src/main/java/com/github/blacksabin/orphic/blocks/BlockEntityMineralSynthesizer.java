@@ -1,6 +1,7 @@
 package com.github.blacksabin.orphic.blocks;
 
 import com.github.blacksabin.orphic.OrphicInit;
+import com.github.blacksabin.orphic.common.ManaBlock;
 import com.github.blacksabin.orphic.screens.ScreenHandlerMineralSynthesizer;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -27,12 +28,13 @@ import javax.annotation.Nullable;
 
 import static com.github.blacksabin.orphic.OrphicInit.STONE_KEY;
 
-public class BlockEntityMineralSynthesizer extends BlockEntity implements NamedScreenHandlerFactory, MachineInventory, SidedInventory {
+public class BlockEntityMineralSynthesizer extends BlockEntity implements ManaBlock, NamedScreenHandlerFactory, MachineInventory, SidedInventory {
 
 
     private int blockGenRate = 4;
     private int tickRate = 20;
     private int timer = 0;
+    private ItemStack manaCell = ItemStack.EMPTY;
 
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(4, ItemStack.EMPTY);
 
@@ -125,4 +127,31 @@ public class BlockEntityMineralSynthesizer extends BlockEntity implements NamedS
         return true;
     }
 
+    @Override
+    public ItemStack getManaCell() {
+        return this.manaCell;
+    }
+
+    @Override
+    public void setManaCell(ItemStack newManaCell) {
+        this.manaCell = newManaCell;
+    }
+
+    @Override
+    public int getManaCurrent() {
+        if(!this.manaCell.isEmpty()){
+
+        }
+        return 0;
+    }
+
+    @Override
+    public int getManaMax() {
+        return 0;
+    }
+
+    @Override
+    public int getManaRegen() {
+        return 0;
+    }
 }

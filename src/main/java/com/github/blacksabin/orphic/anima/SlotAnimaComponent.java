@@ -1,6 +1,6 @@
 package com.github.blacksabin.orphic.anima;
 
-import com.github.blacksabin.orphic.anima.components.AnimaInternal;
+import com.github.blacksabin.orphic.components.AnimaInternal;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

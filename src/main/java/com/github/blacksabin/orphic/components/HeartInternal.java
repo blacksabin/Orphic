@@ -1,9 +1,6 @@
-package com.github.blacksabin.orphic.anima.components;
+package com.github.blacksabin.orphic.components;
 
 import net.minecraft.entity.player.HungerManager;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
 public interface HeartInternal extends AnimaInternal {
 

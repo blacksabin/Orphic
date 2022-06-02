@@ -1,8 +1,7 @@
 package com.github.blacksabin.orphic.anima;
 
-import com.github.blacksabin.orphic.anima.components.HeartInternal;
+import com.github.blacksabin.orphic.components.HeartInternal;
 import net.minecraft.entity.player.HungerManager;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;

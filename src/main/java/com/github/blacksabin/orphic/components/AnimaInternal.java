@@ -1,4 +1,4 @@
-package com.github.blacksabin.orphic.anima.components;
+package com.github.blacksabin.orphic.components;
 
 public interface AnimaInternal {
 

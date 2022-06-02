@@ -1,4 +1,4 @@
-package com.github.blacksabin.orphic.anima.hungermanagers;
+package com.github.blacksabin.orphic.hungermanagers;
 
 import com.github.blacksabin.orphic.anima.AnimaComponent;
 import com.github.blacksabin.orphic.anima.AnimaPropertiesContainer;

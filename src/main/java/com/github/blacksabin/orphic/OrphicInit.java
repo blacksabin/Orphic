@@ -1,12 +1,12 @@
 package com.github.blacksabin.orphic;
 
-import com.github.blacksabin.orphic.anima.ItemAnimaCore;
+import com.github.blacksabin.orphic.items.ItemAnimaCore;
 import com.github.blacksabin.orphic.blocks.*;
 import com.github.blacksabin.orphic.items.ItemArdentSeed;
-import com.github.blacksabin.orphic.anima.ItemCoreExtractor;
-import com.github.blacksabin.orphic.anima.ItemVitalicOriel;
-import com.github.blacksabin.orphic.anima.components.HeartOrphicSource;
-import com.github.blacksabin.orphic.anima.screens.ScreenHandlerAnimaModifier;
+import com.github.blacksabin.orphic.items.ItemCoreExtractor;
+import com.github.blacksabin.orphic.items.ItemVitalicOriel;
+import com.github.blacksabin.orphic.components.HeartOrphicSource;
+import com.github.blacksabin.orphic.screens.ScreenHandlerAnimaModifier;
 import com.github.blacksabin.orphic.items.ItemAtuCharm;
 import com.github.blacksabin.orphic.screens.ScreenHandlerMineralSynthesizer;
 import net.fabricmc.api.ModInitializer;
@@ -38,6 +38,8 @@ public class OrphicInit implements ModInitializer {
 	public static final Block BLOCK_MINERAL_SYNTHESIZER = new BlockMineralSynthesizer(FabricBlockSettings.of(Material.METAL).strength(4.0f).requiresTool());
 	public static final Block BLOCK_DEEP_SENTINEL = new BlockDeepSentinel(FabricBlockSettings.of(Material.METAL).strength(4.0f).requiresTool());
 	public static final Block BLOCK_DEEP_TOTEM = new BlockDeepTotem(FabricBlockSettings.of(Material.METAL).strength(4.0f).requiresTool());
+	public static final Block BLOCK_AETHER_DUST = new Block(FabricBlockSettings.of(Material.POWDER_SNOW).strength(0.3f));
+
 
 	public static BlockEntityType<BlockEntityMineralSynthesizer> BLOCK_ENTITY_MINERAL_SYNTHESIZER;
 	public static BlockEntityType<BlockEntityDeepSentinel> BLOCK_ENTITY_DEEP_SENTINEL;
@@ -69,6 +71,8 @@ public class OrphicInit implements ModInitializer {
 		// BLOCKS - SIMPLE
 		Registry.register(Registry.BLOCK, id("abstract_stone"), BLOCK_ABSTRACT_STONE);
 		Registry.register(Registry.ITEM, id("abstract_stone"), new BlockItem(BLOCK_ABSTRACT_STONE, new FabricItemSettings().group(ItemGroup.MISC)));
+		Registry.register(Registry.BLOCK, id("aether_dust"), BLOCK_AETHER_DUST);
+		Registry.register(Registry.ITEM, id("aether_dust"), new BlockItem(BLOCK_AETHER_DUST, new FabricItemSettings().group(ItemGroup.MISC)));
 
 
 

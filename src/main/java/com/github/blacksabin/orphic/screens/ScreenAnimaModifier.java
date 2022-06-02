@@ -1,4 +1,4 @@
-package com.github.blacksabin.orphic.anima.screens;
+package com.github.blacksabin.orphic.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
