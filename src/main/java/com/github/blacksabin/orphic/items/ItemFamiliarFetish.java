@@ -5,7 +5,10 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtDouble;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -29,36 +32,30 @@ public class ItemFamiliarFetish extends BaseItem {
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity playerEntity, Hand hand) {
-
-        if(!world.isClient()){
-            ItemStack mainHandItem = playerEntity.getMainHandStack();
-            if(hasFamiliar(mainHandItem)){
-                this.summonFamiliar((ServerWorld)world,mainHandItem,playerEntity,playerEntity.getBlockPos());
+    public ActionResult useOnBlock(ItemUsageContext context) {
+        if(!context.getWorld().isClient()){
+            ItemStack stack = context.getPlayer().getMainHandStack();
+            if(hasFamiliar(stack)){
+                this.summonFamiliar((ServerWorld)context.getWorld(),stack,context.getBlockPos());
             }
 
-            return TypedActionResult.success(playerEntity.getStackInHand(hand));
+            return ActionResult.SUCCESS;
 
         }
-        return TypedActionResult.pass(playerEntity.getStackInHand(hand));
+        return super.useOnBlock(context);
     }
 
     public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
         if(!user.getWorld().isClient()){
-            LOGGER.info("useOnEntity called");
             ItemStack itemStack = user.getStackInHand(hand);
-            if(entity instanceof PassiveEntity){
-                LOGGER.info("PassiveEntity check confirmed");
-                NbtCompound nbt = (NbtCompound)stack.getOrCreateNbt();
+            if((entity instanceof PassiveEntity) || (entity instanceof Tameable)){
+                NbtCompound nbt = stack.getOrCreateNbt();
                 if(!nbt.contains(ENTITY_TAG_KEY)){
-                    LOGGER.info("Nbt is empty");
                     if(checkOwner(entity, user.getUuid())){
                         setFamiliar(entity, itemStack);
                     }
-                }else {
-                    LOGGER.info("Checking for owner");
+                }else{
                     if (checkOwner(entity, user.getUuid())) {
-                        LOGGER.info("Player is Owner");
                         storeFamiliar(entity, itemStack);
                     }
                 }
@@ -88,6 +85,16 @@ public class ItemFamiliarFetish extends BaseItem {
         entity.discard();
     }
 
+    public static NbtList toNbtList(double... values) {
+        NbtList nbtList = new NbtList();
+
+        for(double d : values) {
+            nbtList.add(NbtDouble.of(d));
+        }
+
+        return nbtList;
+    }
+
     public static boolean checkOwner(LivingEntity entity, UUID ownerID){
         if(entity instanceof Tameable){
             return ownerID == ((Tameable) entity).getOwnerUuid();
@@ -101,10 +108,18 @@ public class ItemFamiliarFetish extends BaseItem {
         return nbt.contains(ENTITY_TYPE_KEY);
     }
 
-    public void summonFamiliar(ServerWorld world, ItemStack stack, PlayerEntity player, BlockPos pos) {
+    public void summonFamiliar(ServerWorld world, ItemStack stack, BlockPos pos) {
         if (hasFamiliar(stack)) {
-            EntityType<?> summonType = EntityType.get(stack.getOrCreateNbt().getString(ENTITY_TYPE_KEY)).orElseThrow();
+            NbtCompound nbt = stack.getNbt();
+            NbtCompound entityTag = nbt.getCompound(ENTITY_TAG_KEY);
+            entityTag.put("Pos", toNbtList(pos.getX() + 0.5, pos.getY()+1, pos.getZ()+0.5));
+            EntityType<?> summonType = EntityType.get(nbt.getString(ENTITY_TYPE_KEY)).orElseThrow();
             Entity entity = summonType.spawnFromItemStack(world, stack, null, pos, SpawnReason.EVENT, true, false);
+            UUID summonID = nbt.getUuid("SummonID");
+            entity.setUuid(summonID);
+            NbtCompound nbtSummonId = new NbtCompound();
+            nbtSummonId.putUuid("SummonID",summonID);
+            stack.setNbt(nbtSummonId);
         }
     }
 
