@@ -61,6 +61,7 @@ public class AnimaInventory implements Inventory {
     }
 
     public ItemStack removeStack(int slot) {
+        this.informHandler();
         return Inventories.removeStack(this.stacks, slot);
     }
 

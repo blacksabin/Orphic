@@ -1,13 +1,8 @@
 package com.github.blacksabin.orphic;
 
-import com.github.blacksabin.orphic.items.ItemAnimaCore;
+import com.github.blacksabin.orphic.items.*;
 import com.github.blacksabin.orphic.blocks.*;
-import com.github.blacksabin.orphic.items.ItemArdentSeed;
-import com.github.blacksabin.orphic.items.ItemCoreExtractor;
-import com.github.blacksabin.orphic.items.ItemVitalicOriel;
-import com.github.blacksabin.orphic.components.HeartOrphicSource;
 import com.github.blacksabin.orphic.screens.ScreenHandlerAnimaModifier;
-import com.github.blacksabin.orphic.items.ItemAtuCharm;
 import com.github.blacksabin.orphic.screens.ScreenHandlerMineralSynthesizer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -51,6 +46,7 @@ public class OrphicInit implements ModInitializer {
 	public static final ItemVitalicOriel ITEM_VITALIC_ORIEL = new ItemVitalicOriel(new FabricItemSettings().group(ItemGroup.MISC));
 	public static final HeartOrphicSource ITEM_ORPHIC_HEART = new HeartOrphicSource(new FabricItemSettings().group(ItemGroup.MISC));
 	public static final ItemAtuCharm ITEM_ATU_CHARM = new ItemAtuCharm(new FabricItemSettings().group(ItemGroup.MISC));
+	public static final ItemFamiliarFetish ITEM_FAMILIAR_FETISH = new ItemFamiliarFetish(new FabricItemSettings().group(ItemGroup.MISC));
 
 
 	public static final ScreenHandlerType<ScreenHandlerAnimaModifier> SCREEN_HANDLER_ANIMA_MODIFIER = ScreenHandlerRegistry.registerExtended(id("anima_modifier"), ScreenHandlerAnimaModifier::new);
@@ -83,6 +79,7 @@ public class OrphicInit implements ModInitializer {
 		Registry.register(Registry.ITEM, id("vitalic_oriel"), ITEM_VITALIC_ORIEL);
 		Registry.register(Registry.ITEM, id("orphic_heart"), ITEM_ORPHIC_HEART);
 		Registry.register(Registry.ITEM, id("atu_charm"), ITEM_ATU_CHARM);
+		Registry.register(Registry.ITEM, id("familiar_fetish"), ITEM_FAMILIAR_FETISH);
 
 		// BLOCKS - COMPLEX
 		Registry.register(Registry.BLOCK, id("mineral_synthesizer"), BLOCK_MINERAL_SYNTHESIZER);

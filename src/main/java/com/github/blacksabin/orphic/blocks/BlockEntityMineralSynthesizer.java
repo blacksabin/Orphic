@@ -1,7 +1,8 @@
 package com.github.blacksabin.orphic.blocks;
 
 import com.github.blacksabin.orphic.OrphicInit;
-import com.github.blacksabin.orphic.common.ManaBlock;
+import com.github.blacksabin.orphic.anima.ManaBlock;
+import com.github.blacksabin.orphic.anima.ManaManager;
 import com.github.blacksabin.orphic.screens.ScreenHandlerMineralSynthesizer;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -34,7 +35,7 @@ public class BlockEntityMineralSynthesizer extends BlockEntity implements ManaBl
     private int blockGenRate = 4;
     private int tickRate = 20;
     private int timer = 0;
-    private ItemStack manaCell = ItemStack.EMPTY;
+    private final ManaManager manaManager = new ManaManager();
 
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(4, ItemStack.EMPTY);
 
@@ -87,12 +88,14 @@ public class BlockEntityMineralSynthesizer extends BlockEntity implements ManaBl
     public void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
         Inventories.writeNbt(nbt, items);
+        this.manaManager.writeInventoryToTag(nbt);
     }
 
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
         Inventories.readNbt(nbt, items);
+        this.manaManager.readInventoryFromTag(nbt);
     }
 
     @Nullable
@@ -127,31 +130,8 @@ public class BlockEntityMineralSynthesizer extends BlockEntity implements ManaBl
         return true;
     }
 
-    @Override
-    public ItemStack getManaCell() {
-        return this.manaCell;
+    public ManaManager getManaManager(){
+        return this.manaManager;
     }
 
-    @Override
-    public void setManaCell(ItemStack newManaCell) {
-        this.manaCell = newManaCell;
-    }
-
-    @Override
-    public int getManaCurrent() {
-        if(!this.manaCell.isEmpty()){
-
-        }
-        return 0;
-    }
-
-    @Override
-    public int getManaMax() {
-        return 0;
-    }
-
-    @Override
-    public int getManaRegen() {
-        return 0;
-    }
 }

@@ -1,5 +1,6 @@
-package com.github.blacksabin.orphic.components;
+package com.github.blacksabin.orphic.items;
 
+import com.github.blacksabin.orphic.components.HeartInternal;
 import com.github.blacksabin.orphic.hungermanagers.ManaHungerManager;
 import com.github.blacksabin.orphic.common.BaseItem;
 import net.minecraft.entity.player.HungerManager;

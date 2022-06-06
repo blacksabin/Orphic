@@ -68,7 +68,7 @@ public class BlockEntityDeepTotem extends BlockEntity {
         if (blockEntity.isActive() && blockEntity.timer >= blockEntity.tickRate) {
             //givePlayersEffects(world, pos, blockEntity);
             updateTargetEntity(world, pos, blockEntity);
-            attackHostileEntity(world, pos, state, blockEntity);
+            givePlayersEffects(world, pos, blockEntity);
         }
 
     }
@@ -91,41 +91,11 @@ public class BlockEntityDeepTotem extends BlockEntity {
             while(var10.hasNext()) {
                 PlayerEntity playerEntity = (PlayerEntity)var10.next();
                 if (pos.isWithinDistance(playerEntity.getBlockPos(), (double)j) && playerEntity.isTouchingWaterOrRain()) {
-                    playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.CONDUIT_POWER, 260, 0, true, true));
+                    playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 260, 0, true, true));
                 }
             }
 
         }
-    }
-
-    private static void attackHostileEntity(World world, BlockPos pos, BlockState state, BlockEntityDeepTotem blockEntity) {
-        LivingEntity livingEntity = blockEntity.targetEntity;
-        int i = 42; // Radius? How many blocks it needs for full power?
-        if (i < 42) {
-            blockEntity.targetEntity = null;
-        } else if (blockEntity.targetEntity == null && blockEntity.targetUuid != null) {
-            blockEntity.targetEntity = findTargetEntity(world, pos, blockEntity.targetUuid);
-            blockEntity.targetUuid = null;
-        } else if (blockEntity.targetEntity == null) {
-            List<LivingEntity> list = world.getEntitiesByClass(LivingEntity.class, getAttackZone(pos), (entity) -> {
-                return entity instanceof Monster;
-            });
-            if (!list.isEmpty()) {
-                blockEntity.targetEntity = (LivingEntity)list.get(world.random.nextInt(list.size()));
-            }
-        } else if (!blockEntity.targetEntity.isAlive() || !pos.isWithinDistance(blockEntity.targetEntity.getBlockPos(), 8.0)) {
-            blockEntity.targetEntity = null;
-        }
-
-        if (blockEntity.targetEntity != null) {
-            world.playSound((PlayerEntity)null, blockEntity.targetEntity.getX(), blockEntity.targetEntity.getY(), blockEntity.targetEntity.getZ(), SoundEvents.BLOCK_CONDUIT_ATTACK_TARGET, SoundCategory.BLOCKS, 1.0F, 1.0F);
-            blockEntity.targetEntity.damage(DamageSource.MAGIC, blockEntity.getPower());
-        }
-
-        if (livingEntity != blockEntity.targetEntity) {
-            world.updateListeners(pos, state, state, 2);
-        }
-
     }
 
     private static void updateTargetEntity(World world, BlockPos pos, BlockEntityDeepTotem blockEntity) {
