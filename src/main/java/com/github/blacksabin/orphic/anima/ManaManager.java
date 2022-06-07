@@ -28,6 +28,7 @@ public class ManaManager implements Inventory {
     }
 
     public ManaManager() {
+        this.stacks = DefaultedList.ofSize(1, ItemStack.EMPTY);
     }
     public void initializeInventory(){
         this.stacks = DefaultedList.ofSize(1, ItemStack.EMPTY);

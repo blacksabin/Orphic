@@ -33,7 +33,6 @@ public class BlockEntityMineralSynthesizer extends BlockEntity implements ManaBl
 
 
     private int blockGenRate = 4;
-    private int tickRate = 20;
     private int timer = 0;
     private final ManaManager manaManager = new ManaManager();
 
@@ -46,25 +45,11 @@ public class BlockEntityMineralSynthesizer extends BlockEntity implements ManaBl
     public static void tick(World world, BlockPos pos, BlockState state, BlockEntityMineralSynthesizer be) {
         // Code to generate new blocks
         //stack.isIn(tag) || STONE_KEY || Registry.ITEM.getEntryList(key)
-        be.timer++;
-        if(be.timer == be.tickRate) {
-            be.timer = 0;
-            ItemStack itemToStackMimic = be.getStack(0);
-            Item itemToMimic = itemToStackMimic.getItem();
-            if (itemToStackMimic.isIn(STONE_KEY)) {
-                for (int i = 1; i < 4; i++) {
-                    ItemStack newStack = new ItemStack(itemToMimic, be.blockGenRate);
-                    ItemStack thisStack = be.getStack(i);
-                    if (thisStack.getItem() == itemToMimic && thisStack.getCount() < thisStack.getMaxCount()) {
-                        thisStack.increment(be.blockGenRate);
-                    } else if (thisStack.isEmpty()) {
-                        be.setStack(i, newStack);
-                    }
-                }
-
-            }
-        }
+        be.manaTick(be);
     }
+
+
+
 
 
     @Override
@@ -132,6 +117,51 @@ public class BlockEntityMineralSynthesizer extends BlockEntity implements ManaBl
 
     public ManaManager getManaManager(){
         return this.manaManager;
+    }
+
+    @Override
+    public void runManaFunction(BlockEntity blockEntity) {
+        BlockEntityMineralSynthesizer be = (BlockEntityMineralSynthesizer)blockEntity;
+        ItemStack itemToStackMimic = be.getStack(0);
+        Item itemToMimic = itemToStackMimic.getItem();
+        if (itemToStackMimic.isIn(STONE_KEY)) {
+            for (int i = 1; i < 4; i++) {
+                ItemStack newStack = new ItemStack(itemToMimic, be.blockGenRate);
+                ItemStack thisStack = be.getStack(i);
+                if (thisStack.getItem() == itemToMimic && thisStack.getCount() < thisStack.getMaxCount()) {
+                    thisStack.increment(be.blockGenRate);
+                } else if (thisStack.isEmpty()) {
+                    be.setStack(i, newStack);
+                }
+            }
+
+        }
+
+    }
+
+    @Override
+    public int getTickRate() {
+        return 20;
+    }
+
+    @Override
+    public int getTickTimer() {
+        return this.timer;
+    }
+
+    @Override
+    public void setTickRate(int newTickRate) {
+
+    }
+
+    @Override
+    public void incrementTimer() {
+        this.timer++;
+    }
+
+    @Override
+    public void resetTimer() {
+        this.timer = 0;
     }
 
 }
