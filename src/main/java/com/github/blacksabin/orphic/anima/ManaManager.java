@@ -129,7 +129,7 @@ public class ManaManager implements Inventory {
 
         tag.put("ManaCell",newTag);
 
-        this.informHandler();
+        //this.informHandler();
 
 
     }

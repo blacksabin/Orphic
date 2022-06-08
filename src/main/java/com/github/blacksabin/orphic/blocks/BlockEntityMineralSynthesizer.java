@@ -31,7 +31,6 @@ import static com.github.blacksabin.orphic.OrphicInit.STONE_KEY;
 
 public class BlockEntityMineralSynthesizer extends BlockEntity implements ManaBlock, NamedScreenHandlerFactory, MachineInventory, SidedInventory {
 
-
     private int blockGenRate = 4;
     private int timer = 0;
     private final ManaManager manaManager = new ManaManager();
@@ -48,10 +47,6 @@ public class BlockEntityMineralSynthesizer extends BlockEntity implements ManaBl
         be.manaTick(be);
     }
 
-
-
-
-
     @Override
     public DefaultedList<ItemStack> getItems() {
         return items;
@@ -59,9 +54,7 @@ public class BlockEntityMineralSynthesizer extends BlockEntity implements ManaBl
 
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        //We provide *this* to the screenHandler as our class Implements Inventory
-        //Only the Server has the Inventory at the start, this will be synced to the client in the ScreenHandler
-        return new ScreenHandlerMineralSynthesizer(syncId, playerInventory, this);
+        return new ScreenHandlerMineralSynthesizer(syncId, playerInventory, this, this.manaManager);
     }
 
     @Override
@@ -151,7 +144,7 @@ public class BlockEntityMineralSynthesizer extends BlockEntity implements ManaBl
 
     @Override
     public void setTickRate(int newTickRate) {
-
+        // Not necessary yet.
     }
 
     @Override

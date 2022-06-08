@@ -47,6 +47,7 @@ public class OrphicInit implements ModInitializer {
 	public static final HeartOrphicSource ITEM_ORPHIC_HEART = new HeartOrphicSource(new FabricItemSettings().group(ItemGroup.MISC));
 	public static final ItemAtuCharm ITEM_ATU_CHARM = new ItemAtuCharm(new FabricItemSettings().group(ItemGroup.MISC));
 	public static final ItemFamiliarFetish ITEM_FAMILIAR_FETISH = new ItemFamiliarFetish(new FabricItemSettings().group(ItemGroup.MISC));
+	public static final ItemManaCell ITEM_MANA_CELL = new ItemManaCell(new FabricItemSettings().group(ItemGroup.MISC));
 
 
 	public static final ScreenHandlerType<ScreenHandlerAnimaModifier> SCREEN_HANDLER_ANIMA_MODIFIER = ScreenHandlerRegistry.registerExtended(id("anima_modifier"), ScreenHandlerAnimaModifier::new);
@@ -80,6 +81,8 @@ public class OrphicInit implements ModInitializer {
 		Registry.register(Registry.ITEM, id("orphic_heart"), ITEM_ORPHIC_HEART);
 		Registry.register(Registry.ITEM, id("atu_charm"), ITEM_ATU_CHARM);
 		Registry.register(Registry.ITEM, id("familiar_fetish"), ITEM_FAMILIAR_FETISH);
+		Registry.register(Registry.ITEM, id("mana_cell"), ITEM_MANA_CELL);
+
 
 		// BLOCKS - COMPLEX
 		Registry.register(Registry.BLOCK, id("mineral_synthesizer"), BLOCK_MINERAL_SYNTHESIZER);

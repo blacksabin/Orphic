@@ -4,9 +4,9 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
 
-public class SlotOutput extends Slot {
+public class OutputSlot extends Slot {
 
-    public SlotOutput(Inventory inventory, int index, int x, int y) {
+    public OutputSlot(Inventory inventory, int index, int x, int y) {
         super(inventory, index, x, y);
     }
 

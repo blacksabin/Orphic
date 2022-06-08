@@ -22,10 +22,12 @@ public interface ManaBlock {
 
 
     default void manaTick(BlockEntity blockEntity){
+        ManaManager mana = this.getManaManager();
         this.incrementTimer();
+        mana.regenMana();
         if(this.getTickTimer() >= this.getTickRate()){
             this.resetTimer();
-            ManaManager mana = this.getManaManager();
+
             if(mana.canSpendMana(this.getManaCost())){
                 mana.spendMana(this.getManaCost());
                 this.runManaFunction(blockEntity);

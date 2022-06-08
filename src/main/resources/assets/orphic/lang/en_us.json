@@ -1,10 +1,21 @@
 {
-  "item.orphic.ardent_core": "Ardent Core",
-  "item.orphic.core_extractor": "Core Extractor",
-  "item.orphic.anima_core": "Anima Core",
   "item.orphic.manaCurrent": "Current Mana: ",
   "item.orphic.manaMax": "Maximum Mana: ",
   "item.orphic.manaRegen": "Mana Regen: ",
+
+  "item.orphic.ardent_seed": "Ardent Seed",
+  "item.orphic.core_extractor": "Core Extractor",
+  "item.orphic.anima_core": "Anima Core",
   "item.orphic.vitalic_oriel": "Vitalic Oriel",
-  "item.orphic.orphic_heart": "Orphic Heart"
+  "item.orphic.familiar_fetish": "Familiar Fetish",
+  "item.orphic.atu_charm": "Atu Charm",
+  "item.orphic.mana_cell": "Mana Cell",
+
+
+  "block.orphic.abstract_stone": "Abstract Stone",
+  "block.orphic.aether_dust": "Aether Dust",
+
+  "block.orphic.deep_sentinel": "Deep Sentinel",
+  "block.orphic.deep_totem": "Deep Totem",
+  "block.orphic.mineral_synthesizer": "Mineral Synthesizer"
 }
