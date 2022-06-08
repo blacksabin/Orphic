@@ -8,6 +8,8 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
+import static com.github.blacksabin.orphic.render.ManaBlockRenderer.drawManaGauge;
+
 public class ScreenMineralSynthesizer extends HandledScreen<ScreenHandlerMineralSynthesizer> {
 
     //A path to the gui texture. In this example we use the texture from the dispenser
@@ -30,6 +32,9 @@ public class ScreenMineralSynthesizer extends HandledScreen<ScreenHandlerMineral
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         renderBackground(matrices);
+        ScreenHandlerMineralSynthesizer thisScreenHandler = this.getScreenHandler();
+        drawManaGauge(matrices,15,15);
+
         super.render(matrices, mouseX, mouseY, delta);
         drawMouseoverTooltip(matrices, mouseX, mouseY);
     }

@@ -66,9 +66,9 @@ public class BlockEntityDeepTotem extends BlockEntity {
     public static void serverTick(World world, BlockPos pos, BlockState state, BlockEntityDeepTotem blockEntity) {
         blockEntity.timer++;
         if (blockEntity.isActive() && blockEntity.timer >= blockEntity.tickRate) {
-            //givePlayersEffects(world, pos, blockEntity);
-            updateTargetEntity(world, pos, blockEntity);
             givePlayersEffects(world, pos, blockEntity);
+            updateTargetEntity(world, pos, blockEntity);
+            //givePlayersEffects(world, pos, blockEntity);
         }
 
     }
@@ -91,7 +91,7 @@ public class BlockEntityDeepTotem extends BlockEntity {
             while(var10.hasNext()) {
                 PlayerEntity playerEntity = (PlayerEntity)var10.next();
                 if (pos.isWithinDistance(playerEntity.getBlockPos(), (double)j) && playerEntity.isTouchingWaterOrRain()) {
-                    playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 260, 0, true, true));
+                    playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 260, 0, false, true));
                 }
             }
 

@@ -23,12 +23,12 @@ public class ManaManager implements Inventory {
     private ScreenHandler handler;
 
     public ManaManager(ScreenHandler handler) {
-        this.stacks = DefaultedList.ofSize(1, ItemStack.EMPTY);
+        this.initializeInventory();
         this.handler = handler;
     }
 
     public ManaManager() {
-        this.stacks = DefaultedList.ofSize(1, ItemStack.EMPTY);
+        this.initializeInventory();
     }
     public void initializeInventory(){
         this.stacks = DefaultedList.ofSize(1, ItemStack.EMPTY);
