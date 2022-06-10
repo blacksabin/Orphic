@@ -1,4 +1,4 @@
-package com.github.blacksabin.orphic.blocks;
+package com.github.blacksabin.orphic.common.inventory;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;

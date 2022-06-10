@@ -12,6 +12,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 
 import static com.github.blacksabin.orphic.OrphicInit.ITEM_ANIMA_CORE;
+import static com.github.blacksabin.orphic.OrphicInit.ITEM_MANA_CELL;
 
 public class ItemCoreExtractor extends BaseItem {
 
@@ -22,7 +23,7 @@ public class ItemCoreExtractor extends BaseItem {
 
     @Override
     public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
-        if(!user.world.isClient() && entity.getHealth() <= 5 && !entity.isDead()){
+        if(!user.world.isClient() && ((entity.getHealth() <= 5) || (user.getAbilities().creativeMode)) && !entity.isDead()){
             AttributeContainer entityAttributes = entity.getAttributes();
             float maxHP = 1;
             float damage = 0.5f;
@@ -37,13 +38,13 @@ public class ItemCoreExtractor extends BaseItem {
 
             entity.kill();
 
-            ItemStack newCore = new ItemStack(ITEM_ANIMA_CORE);
+            ItemStack newCore = new ItemStack(ITEM_MANA_CELL);
             NbtCompound freshTag = new NbtCompound();
             freshTag.putInt("manaCurrent",0);
             freshTag.putInt("manaMax",maxAnima);
             freshTag.putInt("manaRegen",rand);
             NbtCompound masterNbt = newCore.getOrCreateNbt();
-            masterNbt.put("Anima",freshTag);
+            masterNbt.put("Mana",freshTag);
             if (!user.getAbilities().creativeMode) {
                 stack.decrement(1);
             }

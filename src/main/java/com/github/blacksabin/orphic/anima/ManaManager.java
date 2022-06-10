@@ -51,7 +51,7 @@ public class ManaManager implements Inventory {
         if(!this.stacks.get(0).isEmpty()){
             ItemStack myCell = this.stacks.get(0);
             if(myCell.getItem() instanceof ItemManaCell){
-                NbtCompound nbt = myCell.getOrCreateNbt();
+                NbtCompound nbt = myCell.getOrCreateNbt().getCompound("Mana");
                 this.manaCurrent = nbt.getInt("manaCurrent");
                 this.manaMax = nbt.getInt("manaMax");
                 this.manaRegen = nbt.getInt("manaRegen");

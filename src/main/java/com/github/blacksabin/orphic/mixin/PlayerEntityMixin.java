@@ -13,6 +13,7 @@ import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.encryption.PlayerPublicKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -38,13 +39,13 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     }
 
     @Inject(method = "<init>", at = @At(value = "RETURN"))
-    public void initOrphicHunger(World world, BlockPos pos, float yaw, GameProfile profile, CallbackInfo ci){
+    public void initOrphicHunger(World world, BlockPos pos, float yaw, GameProfile gameProfile, PlayerPublicKey publicKey, CallbackInfo ci){
         this.hungerManager = new MasterHungerManager();
     }
 
 
     @ModifyVariable(method = "applyDamage(Lnet/minecraft/entity/damage/DamageSource;F)V",
-            at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/entity/player/PlayerEntity;applyEnchantmentsToDamage(Lnet/minecraft/entity/damage/DamageSource;F)F"),
+            at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/entity/player/PlayerEntity;modifyAppliedDamage(Lnet/minecraft/entity/damage/DamageSource;F)F"),
             argsOnly = true,
             require = 1,
             index = 2

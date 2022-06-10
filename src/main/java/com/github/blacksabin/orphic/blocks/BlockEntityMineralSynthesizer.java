@@ -1,8 +1,8 @@
 package com.github.blacksabin.orphic.blocks;
 
 import com.github.blacksabin.orphic.OrphicInit;
-import com.github.blacksabin.orphic.anima.ManaBlock;
-import com.github.blacksabin.orphic.anima.ManaManager;
+import com.github.blacksabin.orphic.common.ManaUtil;
+import com.github.blacksabin.orphic.common.inventory.ManaBlock;
 import com.github.blacksabin.orphic.screens.ScreenHandlerMineralSynthesizer;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -19,7 +19,6 @@ import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -29,22 +28,46 @@ import javax.annotation.Nullable;
 
 import static com.github.blacksabin.orphic.OrphicInit.STONE_KEY;
 
-public class BlockEntityMineralSynthesizer extends BlockEntity implements ManaBlock, NamedScreenHandlerFactory, MachineInventory, SidedInventory {
+public class BlockEntityMineralSynthesizer extends BlockEntity implements ManaBlock, NamedScreenHandlerFactory, SidedInventory {
 
     private int blockGenRate = 4;
     private int timer = 0;
-    private final ManaManager manaManager = new ManaManager();
+    private int tickRate = 20;
+    private int manaCurrent = 0;
+    private int manaMax = 0;
+    private int manaRegen = 0;
+    private int manaCost = 25;
 
-    private final DefaultedList<ItemStack> items = DefaultedList.ofSize(4, ItemStack.EMPTY);
+    private DefaultedList<ItemStack> items = DefaultedList.ofSize(5, ItemStack.EMPTY);
 
     public BlockEntityMineralSynthesizer(BlockPos pos, BlockState state) {
         super(OrphicInit.BLOCK_ENTITY_MINERAL_SYNTHESIZER, pos, state);
     }
 
+    public void updateManaCell(){
+        ItemStack stack = this.items.get(0);
+        if(stack.isEmpty()){
+            this.setManaCurrent(0);
+            this.setManaMax(0);
+            this.setManaRegen(0);
+        }else if(this.manaMax == 0){
+            NbtCompound nbt = stack.getOrCreateNbt().getCompound("Mana");
+            this.setManaCurrent(nbt.getInt("manaCurrent"));
+            this.setManaMax(nbt.getInt("manaMax"));
+            this.setManaRegen(nbt.getInt("manaRegen"));
+        }
+    }
+
     public static void tick(World world, BlockPos pos, BlockState state, BlockEntityMineralSynthesizer be) {
-        // Code to generate new blocks
-        //stack.isIn(tag) || STONE_KEY || Registry.ITEM.getEntryList(key)
-        be.manaTick(be);
+        be.timer++;
+        be.regenMana();
+        if(be.timer >= be.tickRate){
+            be.timer = 0;
+            if(be.canSpendMana(be.manaCost)){
+                be.spendMana(be.manaCost);
+                be.runManaFunction(be);
+            }
+        }
     }
 
     @Override
@@ -54,26 +77,41 @@ public class BlockEntityMineralSynthesizer extends BlockEntity implements ManaBl
 
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new ScreenHandlerMineralSynthesizer(syncId, playerInventory, this, this.manaManager);
+        return new ScreenHandlerMineralSynthesizer(syncId, playerInventory, this);
     }
 
     @Override
     public Text getDisplayName() {
-        return new TranslatableText(getCachedState().getBlock().getTranslationKey());
+        return Text.translatable(getCachedState().getBlock().getTranslationKey());
     }
 
     @Override
     public void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
-        Inventories.writeNbt(nbt, items);
-        this.manaManager.writeInventoryToTag(nbt);
+
+        NbtCompound invTag = new NbtCompound();
+        Inventories.writeNbt(invTag, items);
+
+        NbtCompound manaTag = new NbtCompound();
+        ManaUtil.writeManaNbt(manaTag, this);
+
+        nbt.put("Inventory",invTag);
+        nbt.put("Mana",manaTag);
     }
 
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
-        Inventories.readNbt(nbt, items);
-        this.manaManager.readInventoryFromTag(nbt);
+
+        this.items = DefaultedList.ofSize(5, ItemStack.EMPTY);
+
+        NbtCompound invTag = nbt.getCompound("Inventory");
+        Inventories.readNbt(invTag, items);
+
+        NbtCompound manaTag = nbt.getCompound("Mana");
+        ManaUtil.readManaNbt(manaTag, this);
+
+        this.updateManaCell();
     }
 
     @Nullable
@@ -108,17 +146,83 @@ public class BlockEntityMineralSynthesizer extends BlockEntity implements ManaBl
         return true;
     }
 
-    public ManaManager getManaManager(){
-        return this.manaManager;
+    @Override
+    public boolean hasManaCell() {
+        return !this.items.get(0).isEmpty();
+    }
+
+    @Override
+    public boolean hasManaStorage() {
+        return false;
+    }
+
+    @Override
+    public int getManaCurrent() {
+        return this.manaCurrent;
+    }
+
+    @Override
+    public void setManaCurrent(int manaCurrent) {
+        this.manaCurrent = manaCurrent;
+    }
+
+    @Override
+    public int getManaMax() {
+        return this.manaMax;
+    }
+
+    @Override
+    public void setManaMax(int manaMax) {
+        this.manaMax = manaMax;
+    }
+
+    @Override
+    public int getManaRegen() {
+        return this.manaRegen;
+    }
+
+    @Override
+    public void setManaRegen(int manaRegen) {
+        this.manaRegen = manaRegen;
+    }
+
+    @Override
+    public float getManaRatio() {
+        if(this.manaMax > 0){
+            return (float)(this.manaCurrent / this.manaMax);
+        }
+        return 0;
+    }
+
+    @Override
+    public void regenMana() {
+        this.addMana(this.manaRegen);
+    }
+
+    @Override
+    public void addMana(int amount) {
+        this.manaCurrent = Math.min(amount, this.manaMax);
+    }
+
+    @Override
+    public boolean canSpendMana(int amount) {
+        return this.manaCurrent >= amount;
+    }
+
+    @Override
+    public int spendMana(int amount) {
+        int overload = this.manaCurrent - amount;
+        this.manaCurrent = Math.max(0,overload);
+        return overload;
     }
 
     @Override
     public void runManaFunction(BlockEntity blockEntity) {
         BlockEntityMineralSynthesizer be = (BlockEntityMineralSynthesizer)blockEntity;
-        ItemStack itemToStackMimic = be.getStack(0);
-        Item itemToMimic = itemToStackMimic.getItem();
-        if (itemToStackMimic.isIn(STONE_KEY)) {
-            for (int i = 1; i < 4; i++) {
+        ItemStack itemStackToMimic = be.getStack(1);
+        Item itemToMimic = itemStackToMimic.getItem();
+        if (itemStackToMimic.isIn(STONE_KEY)) {
+            for (int i = 2; i < 5; i++) {
                 ItemStack newStack = new ItemStack(itemToMimic, be.blockGenRate);
                 ItemStack thisStack = be.getStack(i);
                 if (thisStack.getItem() == itemToMimic && thisStack.getCount() < thisStack.getMaxCount()) {
@@ -132,29 +236,5 @@ public class BlockEntityMineralSynthesizer extends BlockEntity implements ManaBl
 
     }
 
-    @Override
-    public int getTickRate() {
-        return 20;
-    }
-
-    @Override
-    public int getTickTimer() {
-        return this.timer;
-    }
-
-    @Override
-    public void setTickRate(int newTickRate) {
-        // Not necessary yet.
-    }
-
-    @Override
-    public void incrementTimer() {
-        this.timer++;
-    }
-
-    @Override
-    public void resetTimer() {
-        this.timer = 0;
-    }
 
 }
